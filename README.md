@@ -83,6 +83,7 @@ pnpm run test
 
 - 推送到 `main` 分支后，`pages.yml` 会自动构建 playground 并部署到 GitHub Pages
 - 本地可先执行 `pnpm run preview:build` 验证 pages 构建结果
+- 在线预览地址：https://huangzida.github.io/starter-vue3/
 
 ## 发布
 
