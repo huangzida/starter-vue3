@@ -32,7 +32,7 @@
     "preinstall": "npx only-allow pnpm",
     "build": "vite build && vue-tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --declarationDir dist && node ./scripts/postbuild.mjs",
     "dev": "vite build --watch",
-    "lint": "eslint --no-error-on-unmatched-pattern --no-warn-ignored --ignore-pattern .trae/** src playground test scripts *.js *.ts *.mjs",
+    "lint": "eslint --no-error-on-unmatched-pattern --no-warn-ignored --ignore-pattern .trae/** src playground test scripts eslint.config.js vite.config.ts vitest.config.ts",
     "prepublishOnly": "nr build",
     "preview": "pnpm run build && vite --config playground/vite.config.ts",
     "preview:build": "pnpm run build && vite build --config playground/vite.config.ts",
