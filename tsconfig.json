@@ -1,10 +1,15 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["ESNext"],
+    "lib": ["DOM", "ESNext"],
+    "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "paths": {
+      "starter-vue3": ["./src/index.ts"]
+    },
     "resolveJsonModule": true,
+    "types": ["node", "vitest/globals"],
     "strict": true,
     "strictNullChecks": true,
     "noEmit": true,

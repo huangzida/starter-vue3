@@ -1,42 +1,97 @@
-# pkg-placeholder
+# starter-vue3
 
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![bundle][bundle-src]][bundle-href]
-[![JSDocs][jsdocs-src]][jsdocs-href]
-[![License][license-src]][license-href]
+Vue 3 组件库模板，基于 Vite + TypeScript + Tailwind CSS。
 
-_description_
+## 特性
 
-## Note for Developers
+- 使用 `.vue` 单文件组件开发组件库
+- 仅提供 ESM 产物（`index.mjs`），不提供 CommonJS
+- 输出类型声明并暴露 `index.d.mts`
+- 使用 `vite-plugin-css-injected-by-js` 自动注入样式，无需业务方手动引入 CSS
+- 内置 playground，按第三方项目方式消费 `dist` 产物验证
+- 内置 Vitest + Vue Test Utils 测试
+- 内置 GitHub Pages 预览工作流
 
-This starter recommands using [npm Trusted Publisher](https://github.com/e18e/ecosystem-issues/issues/201), where the release is done on CI to ensure the security of the packages.
+## 项目结构
 
-To do so, you need to run `pnpm publish` manually for the very first time to create the package on npm, and then go to `https://www.npmjs.com/package/<your-package-name>/access` to set the connection to your GitHub repo.
+```txt
+.
+├─ src/
+│  ├─ components/
+│  │  └─ HelloButton.vue
+│  ├─ index.ts
+│  ├─ styles.css
+│  └─ env.d.ts
+├─ playground/
+│  ├─ App.vue
+│  ├─ main.ts
+│  └─ vite.config.ts
+├─ test/
+│  └─ hello-button.test.ts
+└─ .github/workflows/
+   └─ pages.yml
+```
 
-Then for the future releases, you can run `pnpm run release` to do the release and the GitHub Actions will take care of the release process.
+## 本地开发
 
-## Sponsors
+```bash
+pnpm install
+pnpm run preview
+```
 
-<p align="center">
-  <a href="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg">
-    <img src='https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg'/>
-  </a>
-</p>
+`preview` 会先执行构建，再启动 playground，确保你看到的是“第三方消费打包产物”的结果。
+
+## 构建产物
+
+```bash
+pnpm run build
+```
+
+构建后默认输出到 `dist/`：
+
+- `dist/index.mjs`：库 ESM 入口
+- `dist/index.d.mts`：对外暴露类型入口
+
+`package.json` 的导出策略是 import-only：
+
+- `exports["."].import` -> `./dist/index.mjs`
+- `exports["."].types` -> `./dist/index.d.mts`
+
+## 在第三方项目中使用
+
+```ts
+import StarterVue3, { HelloButton } from 'starter-vue3'
+```
+
+```ts
+import StarterVue3 from 'starter-vue3'
+import { createApp } from 'vue'
+import App from './App.vue'
+
+createApp(App).use(StarterVue3).mount('#app')
+```
+
+## 质量检查
+
+```bash
+pnpm run lint
+pnpm run typecheck
+pnpm run test
+```
+
+## GitHub Pages 预览
+
+- 推送到 `main` 分支后，`pages.yml` 会自动构建 playground 并部署到 GitHub Pages
+- 本地可先执行 `pnpm run preview:build` 验证 pages 构建结果
+
+## 发布
+
+推荐使用 npm Trusted Publisher：
+
+1. 首次手动执行 `pnpm publish`，在 npm 创建包
+2. 在 npm 包页面配置 GitHub 仓库信任关系
+3. 后续使用 `pnpm run release`，由 GitHub Actions 完成发布流程
 
 ## License
 
-[MIT](./LICENSE) License © [Anthony Fu](https://github.com/antfu)
-
-<!-- Badges -->
-
-[npm-version-src]: https://img.shields.io/npm/v/pkg-placeholder?style=flat&colorA=080f12&colorB=1fa669
-[npm-version-href]: https://npmjs.com/package/pkg-placeholder
-[npm-downloads-src]: https://img.shields.io/npm/dm/pkg-placeholder?style=flat&colorA=080f12&colorB=1fa669
-[npm-downloads-href]: https://npmjs.com/package/pkg-placeholder
-[bundle-src]: https://img.shields.io/bundlephobia/minzip/pkg-placeholder?style=flat&colorA=080f12&colorB=1fa669&label=minzip
-[bundle-href]: https://bundlephobia.com/result?p=pkg-placeholder
-[license-src]: https://img.shields.io/github/license/antfu/pkg-placeholder.svg?style=flat&colorA=080f12&colorB=1fa669
-[license-href]: https://github.com/antfu/pkg-placeholder/blob/main/LICENSE
-[jsdocs-src]: https://img.shields.io/badge/jsdocs-reference-080f12?style=flat&colorA=080f12&colorB=1fa669
-[jsdocs-href]: https://www.jsdocs.io/package/pkg-placeholder
+[MIT](./LICENSE) License © [huangzida](https://github.com/huangzida) <398926656@qq.com>
